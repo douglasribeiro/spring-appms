@@ -1,16 +1,29 @@
 package com.douglas.developer.appms.resources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.douglas.developer.appms.domain.Categoria;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
 
 	@GetMapping
-	public String listar() {
-		return "rest esta funcionanado......";
+	public List<Categoria> listar() {
+		
+		Categoria cat1 = new Categoria(1L, "informatica");
+		Categoria cat2 = new Categoria(2L, "informatica");
+		
+		List<Categoria> lista = new ArrayList<>();
+		lista.add(cat1);
+		lista.add(cat2);
+		
+		return lista;
 	}
 	
 	
