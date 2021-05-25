@@ -1,6 +1,5 @@
 package com.douglas.developer.appms;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
@@ -14,6 +13,7 @@ import com.douglas.developer.appms.domain.Cidade;
 import com.douglas.developer.appms.domain.Cliente;
 import com.douglas.developer.appms.domain.Endereco;
 import com.douglas.developer.appms.domain.Estado;
+import com.douglas.developer.appms.domain.ItemPedido;
 import com.douglas.developer.appms.domain.Pagamento;
 import com.douglas.developer.appms.domain.PagamentoComBoleto;
 import com.douglas.developer.appms.domain.PagamentoComCartao;
@@ -26,6 +26,7 @@ import com.douglas.developer.appms.repositories.CidadeRepository;
 import com.douglas.developer.appms.repositories.ClienteRepository;
 import com.douglas.developer.appms.repositories.EnderecoRepository;
 import com.douglas.developer.appms.repositories.EstadoRepository;
+import com.douglas.developer.appms.repositories.ItemPedidoRepository;
 import com.douglas.developer.appms.repositories.PagamentoRepository;
 import com.douglas.developer.appms.repositories.PedidoRepository;
 import com.douglas.developer.appms.repositories.ProdutoRepository;
@@ -56,6 +57,9 @@ public class AppmsApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AppmsApplication.class, args);
@@ -121,6 +125,19 @@ public class AppmsApplication implements CommandLineRunner {
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
