@@ -1,5 +1,6 @@
 package com.douglas.developer.appms.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,9 @@ public class CategoriaService {
 			throw new DataIntegratyException("Não possivel excluir uma Categoria que contem produtos.");
 		}
 		
+	}
+	
+	public List<Categoria> buscaTodas(){
+		return repository.findAll();
 	}
 }
