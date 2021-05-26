@@ -3,8 +3,14 @@ package com.douglas.developer.appms.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.print.attribute.standard.PageRanges;
+
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.douglas.developer.appms.domain.Categoria;
@@ -49,5 +55,10 @@ public class CategoriaService {
 	
 	public List<Categoria> buscaTodas(){
 		return repository.findAll();
+	}
+	
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		PageRequest pagerequest = PageRequest.of(page, linesPerPage, Sort.by(orderBy).ascending());
+		return repository.findAll(pagerequest);
 	}
 }
