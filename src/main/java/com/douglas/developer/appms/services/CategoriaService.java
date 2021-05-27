@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.douglas.developer.appms.domain.Categoria;
+import com.douglas.developer.appms.dto.CategoriaDTO;
 import com.douglas.developer.appms.exceptions.DataIntegratyException;
 import com.douglas.developer.appms.exceptions.ObjectNotFoundException;
 import com.douglas.developer.appms.repositories.Categoriarepository;
@@ -60,5 +61,9 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pagerequest = PageRequest.of(page, linesPerPage, Sort.by(orderBy).ascending());
 		return repository.findAll(pagerequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
 }
